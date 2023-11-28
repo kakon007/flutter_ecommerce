@@ -24,20 +24,6 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
 
-  Future<int> _calculateTotalPrice() async {
-    final box = Boxes.getData();
-
-    List<Product> products = box.values.toList();
-
-    _controllerPd.subTotalPrice.value =
-        products.fold(0, (prev, product) => prev + product.price);
-    _controllerPd.totalQuantity.value =
-        products.fold(0, (prev, product) => prev + 1);
-    print(_controllerPd.subTotalPrice.value);
-    _controllerPd.calculateTotalPrice();
-    return _controllerPd.subTotalPrice.value;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,7 +90,6 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
                 box.add(data);
 
                 data.save().then((value) {
-                  _calculateTotalPrice();
                   return Get.to(() => CartPageView());
                 });
               },
@@ -234,7 +219,8 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
                     children: [
                       RatingBar.builder(
                         itemSize: 20,
-                        initialRating: 3,
+                        initialRating:
+                            _controllerPd.productDetails?.value.rating ?? 0,
                         minRating: 1,
                         direction: Axis.horizontal,
                         allowHalfRating: true,
@@ -246,7 +232,7 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
                           size: 5,
                         ),
                         onRatingUpdate: (rating) {
-                          print(rating);
+                          //print(rating);
                         },
                       ),
                       const SizedBox(

@@ -13,7 +13,7 @@ class ProductCategoryButton extends StatelessWidget {
       height: MediaQuery.of(context).size.height / 16,
       child: Obx(
         () => _controller.categoriesList.isEmpty
-            ? const Center(child: CircularProgressIndicator())
+            ? SizedBox()
             : ListView.builder(
                 scrollDirection: Axis.horizontal,
                 shrinkWrap: true,

@@ -102,7 +102,7 @@ class _CartListViewState extends State<CartListView> {
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w300)),
-                                Text('${data[i].price}',
+                                Text('\$ ${data[i].price}',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold)),

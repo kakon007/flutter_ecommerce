@@ -27,20 +27,21 @@ class _ProductPageViewState extends State<ProductPageView> {
         actions: [
           InkWell(
             onTap: () {
-              Get.to(() => CartPageView());
+              Get.to(() => const CartPageView());
             },
             child: Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Stack(
                 children: [
-                  Icon(Icons.shopping_cart),
+                  const Icon(Icons.shopping_cart),
                   Obx(
                     () => CircleAvatar(
                       backgroundColor: Colors.red,
                       child: Center(
                           child: Text(
                         '${_controller.totalQuantity.value}',
-                        style: TextStyle(fontSize: 12, color: Colors.white),
+                        style:
+                            const TextStyle(fontSize: 12, color: Colors.white),
                       )),
                     ),
                   ),
@@ -53,19 +54,19 @@ class _ProductPageViewState extends State<ProductPageView> {
       body: SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ProductSearchBar(),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               ProductCategoryButton(),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
-              ProductListView()
+              const ProductListView()
             ],
           ),
         ),

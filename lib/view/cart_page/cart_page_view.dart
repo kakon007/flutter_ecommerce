@@ -3,6 +3,9 @@ import 'package:flutter_interview_app/view/cart_page/widgets/cart_list_view.dart
 import 'package:flutter_interview_app/view/product_page/product_page_controller.dart';
 import 'package:get/get.dart';
 
+import '../../box/boxes.dart';
+import '../../model/cart_product_model.dart';
+
 class CartPageView extends StatefulWidget {
   const CartPageView({super.key});
 
@@ -13,6 +16,20 @@ class CartPageView extends StatefulWidget {
 class _CartPageViewState extends State<CartPageView> {
   final ProductPagecontroller _controllerPd = Get.find();
   TextEditingController _textFieldController = TextEditingController();
+  Future<int> _calculateTotalPrice() async {
+    final box = Boxes.getData();
+
+    List<Product> products = box.values.toList();
+
+    _controllerPd.subTotalPrice.value =
+        products.fold(0, (prev, product) => prev + product.price);
+    _controllerPd.totalQuantity.value =
+        products.fold(0, (prev, product) => prev + 1);
+    print(_controllerPd.subTotalPrice.value);
+    _controllerPd.calculateTotalPrice();
+    return _controllerPd.subTotalPrice.value;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +41,9 @@ class _CartPageViewState extends State<CartPageView> {
               color: Colors.white,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            _calculateTotalPrice();
+          },
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(
@@ -139,7 +158,7 @@ class _CartPageViewState extends State<CartPageView> {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
                   Obx(
-                    () => Text('${_controllerPd.subTotalPrice.value}',
+                    () => Text('\$ ${_controllerPd.subTotalPrice.value}',
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w400)),
                   )
@@ -154,7 +173,8 @@ class _CartPageViewState extends State<CartPageView> {
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.w400)),
                         Obx(
-                          () => Text(' ${_controllerPd.voucherDiscount.value}',
+                          () => Text(
+                              '\$ - ${_controllerPd.voucherDiscount.value}',
                               style: const TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.w400)),
                         )
@@ -170,7 +190,7 @@ class _CartPageViewState extends State<CartPageView> {
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
                   Obx(
-                    () => Text('${_controllerPd.totalPrice.value}',
+                    () => Text('\$ ${_controllerPd.totalPrice.value}',
                         style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.w400)),
                   )
