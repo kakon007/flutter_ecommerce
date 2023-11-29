@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_interview_app/view/cart_page/widgets/cart_list_view.dart';
-import 'package:flutter_interview_app/view/product_page/product_page_controller.dart';
+import 'package:flutter_interview_app/controller/product_page_controller.dart';
 import 'package:get/get.dart';
 
 import '../../box/boxes.dart';
@@ -110,17 +110,21 @@ class _CartPageViewState extends State<CartPageView> {
                           ),
                           actions: <Widget>[
                             MaterialButton(
-                              color: const Color.fromRGBO(76, 175, 80, 1),
+                              color: Colors.black,
                               textColor: Colors.white,
-                              child: const Text('Add'),
+                              child: const Text('Add voucher'),
                               onPressed: () {
                                 if (_textFieldController.text.isNotEmpty) {
                                   if (_textFieldController.text == 'ECHO13') {
                                     _controllerPd.calculatePercentage(
                                         _controllerPd.subTotalPrice.value, 5);
                                     _controllerPd.calculateTotalPrice();
+                                    _textFieldController.clear();
                                     Navigator.of(context).pop();
                                   } else {
+                                    Get.snackbar('Faild', "Invalid voucher");
+                                    _textFieldController.clear();
+
                                     Navigator.of(context).pop();
                                   }
                                 }

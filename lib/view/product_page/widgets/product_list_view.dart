@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_interview_app/view/product_details_page/product_details_page_view.dart';
-import 'package:flutter_interview_app/view/product_page/product_page_controller.dart';
+import 'package:flutter_interview_app/controller/product_page_controller.dart';
 import 'package:get/get.dart';
 
 class ProductListView extends StatefulWidget {

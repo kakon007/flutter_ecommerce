@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter_interview_app/box/boxes.dart';
 import 'package:flutter_interview_app/model/product_details_model.dart';
 import 'package:flutter_interview_app/model/product_list_model.dart';
 import 'package:get/get.dart';
@@ -30,6 +31,12 @@ class ProductPagecontroller extends GetxController {
     getAllCategoriesData();
   }
 
+  void getQuantity() {
+    final box = Boxes.getData();
+    final data = box.values.toList().cast<Product>();
+    totalQuantity.value = data.length;
+  }
+
   double calculatePercentage(int amount, int percentage) {
     var result = amount * (percentage / 100);
     voucherDiscount.value = result.toInt();
@@ -52,6 +59,7 @@ class ProductPagecontroller extends GetxController {
       //print('pro le ${productList.length}');
     } else {
       //print('Something went worng');
+      Get.snackbar('Error', 'Something went worng');
     }
   }
 
@@ -67,6 +75,7 @@ class ProductPagecontroller extends GetxController {
       //print('pro ca ${categoriesList.length}');
     } else {
       //print('Something went worng');
+      Get.snackbar('Error', 'Something went worng');
     }
   }
 
@@ -82,6 +91,7 @@ class ProductPagecontroller extends GetxController {
     } else {
       isDataLoading.value = false;
       //print('Something went worng');
+      Get.snackbar('Error', 'Something went worng');
     }
   }
 
@@ -96,6 +106,7 @@ class ProductPagecontroller extends GetxController {
       //print('pro le ${productList.length}');
     } else {
       //print('Something went worng');
+      Get.snackbar('Error', 'Something went worng');
     }
   }
 
@@ -110,6 +121,7 @@ class ProductPagecontroller extends GetxController {
       //print('pro le ${productList.length}');
     } else {
       //print('Something went worng');
+      Get.snackbar('Error', 'Something went worng');
     }
   }
 }

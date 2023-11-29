@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_interview_app/view/cart_page/cart_page_view.dart';
-import 'package:flutter_interview_app/view/product_page/product_page_controller.dart';
+import 'package:flutter_interview_app/controller/product_page_controller.dart';
 import 'package:flutter_interview_app/view/product_page/widgets/product_category_button.dart';
 import 'package:flutter_interview_app/view/product_page/widgets/product_list_view.dart';
 import 'package:flutter_interview_app/view/product_page/widgets/product_search_bar.dart';

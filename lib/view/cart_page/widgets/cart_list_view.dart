@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_interview_app/box/boxes.dart';
 import 'package:flutter_interview_app/model/cart_product_model.dart';
@@ -7,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../product_page/product_page_controller.dart';
+import '../../../controller/product_page_controller.dart';
 
 class CartListView extends StatefulWidget {
   const CartListView({super.key});
@@ -19,19 +17,7 @@ class CartListView extends StatefulWidget {
 class _CartListViewState extends State<CartListView> {
   final ProductPagecontroller _controllerPd = Get.find();
 
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  void _dcrementCounter() {
-    setState(() {
-      _counter--;
-    });
-  }
+  //int _counter = 0;
 
   Future<int> _calculateTotalPrice({int? excludedProductId}) async {
     final box = Boxes.getData();
@@ -46,8 +32,49 @@ class _CartListViewState extends State<CartListView> {
         products.fold(0, (prev, product) => prev + product.price);
     _controllerPd.totalQuantity.value =
         products.fold(0, (prev, product) => prev - 1);
-    print(_controllerPd.subTotalPrice.value);
+    //print(_controllerPd.subTotalPrice.value);
     return _controllerPd.subTotalPrice.value;
+  }
+
+  Future<void> updateQuantity(int index, int price) async {
+    final box = Boxes.getData();
+    var product = box.getAt(index);
+    if (product != null) {
+      product.quantity++;
+      _controllerPd.subTotalPrice.value =
+          _controllerPd.subTotalPrice.value + price;
+      _controllerPd.totalPrice.value = _controllerPd.totalPrice.value + price;
+
+      //_calculateTotalPrice(excludedProductId: index);
+      await box.putAt(index, product);
+    }
+  }
+
+  Future<void> removedQuantity(int index, int price) async {
+    final box = Boxes.getData();
+    var product = box.getAt(index);
+    if (product != null) {
+      if (product.quantity < 1) {
+        box.deleteAt(index);
+      } else {
+        product.quantity--;
+        _controllerPd.subTotalPrice.value =
+            _controllerPd.subTotalPrice.value - price;
+        _controllerPd.totalPrice.value = _controllerPd.totalPrice.value - price;
+        await box.putAt(index, product);
+      }
+    }
+  }
+
+  void _incrementCounter(
+    int index,
+    int price,
+  ) {
+    updateQuantity(index, price);
+  }
+
+  void _dcrementCounter(int index, int price) {
+    removedQuantity(index, price);
   }
 
   @override
@@ -131,7 +158,7 @@ class _CartListViewState extends State<CartListView> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      _incrementCounter();
+                                      _incrementCounter(i, data[i].price);
                                     },
                                     child: Container(
                                         decoration: BoxDecoration(
@@ -148,7 +175,7 @@ class _CartListViewState extends State<CartListView> {
                                     width: 5,
                                   ),
                                   Text(
-                                    '$_counter',
+                                    '${data[i].quantity}',
                                     style: TextStyle(fontSize: 15),
                                   ),
                                   SizedBox(
@@ -156,7 +183,7 @@ class _CartListViewState extends State<CartListView> {
                                   ),
                                   InkWell(
                                     onTap: () {
-                                      _dcrementCounter();
+                                      _dcrementCounter(i, data[i].price);
                                     },
                                     child: Container(
                                         decoration: BoxDecoration(

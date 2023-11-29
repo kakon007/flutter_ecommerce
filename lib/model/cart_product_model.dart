@@ -14,7 +14,7 @@ class Product extends HiveObject {
   final String description;
 
   @HiveField(3)
-  final int price;
+  int price;
 
   @HiveField(4)
   final double discountPercentage;
@@ -37,6 +37,9 @@ class Product extends HiveObject {
   @HiveField(10)
   final List<String> images;
 
+  @HiveField(11)
+  int quantity;
+
   Product(
       this.id,
       this.title,
@@ -48,21 +51,6 @@ class Product extends HiveObject {
       this.brand,
       this.category,
       this.thumbnail,
-      this.images);
-
-  factory Product.fromJson(Map<String, dynamic> json) {
-    return Product(
-      json['id'],
-      json['title'],
-      json['description'],
-      json['price'],
-      json['discountPercentage'],
-      json['rating'],
-      json['stock'],
-      json['brand'],
-      json['category'],
-      json['thumbnail'],
-      List<String>.from(json['images']),
-    );
-  }
+      this.images,
+      this.quantity);
 }

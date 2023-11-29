@@ -1,10 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_interview_app/view/cart_page/cart_page_view.dart';
-import 'package:flutter_interview_app/view/product_page/product_page_controller.dart';
+import 'package:flutter_interview_app/controller/product_page_controller.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
 import '../../box/boxes.dart';
 import '../../model/cart_product_model.dart';
@@ -74,21 +73,21 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
               ),
               onPressed: () {
                 final data = Product(
-                  _controllerPd.productDetails!.value.id!,
-                  _controllerPd.productDetails!.value.title!,
-                  _controllerPd.productDetails!.value.description!,
-                  _controllerPd.productDetails!.value.price!,
-                  _controllerPd.productDetails!.value.discountPercentage!,
-                  _controllerPd.productDetails!.value.rating!,
-                  _controllerPd.productDetails!.value.stock!,
-                  _controllerPd.productDetails!.value.brand!,
-                  _controllerPd.productDetails!.value.category!,
-                  _controllerPd.productDetails!.value.thumbnail!,
-                  _controllerPd.productDetails!.value.images!,
-                );
+                    _controllerPd.productDetails!.value.id!,
+                    _controllerPd.productDetails!.value.title!,
+                    _controllerPd.productDetails!.value.description!,
+                    _controllerPd.productDetails!.value.price!,
+                    _controllerPd.productDetails!.value.discountPercentage!,
+                    _controllerPd.productDetails!.value.rating!,
+                    _controllerPd.productDetails!.value.stock!,
+                    _controllerPd.productDetails!.value.brand!,
+                    _controllerPd.productDetails!.value.category!,
+                    _controllerPd.productDetails!.value.thumbnail!,
+                    _controllerPd.productDetails!.value.images!,
+                    1);
                 final box = Boxes.getData();
                 box.add(data);
-
+                _controllerPd.getQuantity();
                 data.save().then((value) {
                   return Get.to(() => CartPageView());
                 });
