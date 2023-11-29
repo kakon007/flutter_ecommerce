@@ -5,6 +5,7 @@ import 'package:flutter_interview_app/model/product_details_model.dart';
 import 'package:flutter_interview_app/model/product_list_model.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import '../../model/cart_product_model.dart' as localProductModel;
 
 class ProductPagecontroller extends GetxController {
   RxList<Product> productList = (List<Product>.of([])).obs;
@@ -25,10 +26,22 @@ class ProductPagecontroller extends GetxController {
 
   @override
   void onInit() {
-    // TODO: implement onInit
     super.onInit();
     getAllProductData();
     getAllCategoriesData();
+  }
+
+  Future<int> calculateSubAndQantityTotalPrice() async {
+    final box = Boxes.getData();
+
+    List<localProductModel.Product> products = box.values.toList();
+
+    subTotalPrice.value =
+        products.fold(0, (prev, product) => prev + product.price);
+    totalQuantity.value = products.fold(0, (prev, product) => prev + 1);
+
+    calculateTotalPrice();
+    return subTotalPrice.value;
   }
 
   void getQuantity() {
@@ -45,7 +58,6 @@ class ProductPagecontroller extends GetxController {
 
   void calculateTotalPrice() {
     totalPrice.value = subTotalPrice.value - voucherDiscount.value;
-    print(totalPrice.value);
   }
 
   Future getAllProductData() async {
@@ -56,9 +68,7 @@ class ProductPagecontroller extends GetxController {
       ProductListPage productModelData =
           ProductListPage.fromJson(json.decode(response.body));
       productList.value = productModelData.products!;
-      //print('pro le ${productList.length}');
     } else {
-      //print('Something went worng');
       Get.snackbar('Error', 'Something went worng');
     }
   }
@@ -72,9 +82,7 @@ class ProductPagecontroller extends GetxController {
       for (var element in data) {
         categoriesList.add(element);
       }
-      //print('pro ca ${categoriesList.length}');
     } else {
-      //print('Something went worng');
       Get.snackbar('Error', 'Something went worng');
     }
   }
@@ -86,11 +94,9 @@ class ProductPagecontroller extends GetxController {
     if (response.statusCode == 200) {
       productDetails?.value =
           ProductDetailsModel.fromJson(json.decode(response.body));
-      //print('pro de ${productDetails?.value.category}');
       isDataLoading.value = false;
     } else {
       isDataLoading.value = false;
-      //print('Something went worng');
       Get.snackbar('Error', 'Something went worng');
     }
   }
@@ -103,9 +109,7 @@ class ProductPagecontroller extends GetxController {
       ProductListPage productModelData =
           ProductListPage.fromJson(json.decode(response.body));
       productList.value = productModelData.products!;
-      //print('pro le ${productList.length}');
     } else {
-      //print('Something went worng');
       Get.snackbar('Error', 'Something went worng');
     }
   }
@@ -118,9 +122,7 @@ class ProductPagecontroller extends GetxController {
       ProductListPage productModelData =
           ProductListPage.fromJson(json.decode(response.body));
       productList.value = productModelData.products!;
-      //print('pro le ${productList.length}');
     } else {
-      //print('Something went worng');
       Get.snackbar('Error', 'Something went worng');
     }
   }

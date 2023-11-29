@@ -89,7 +89,8 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
                 box.add(data);
                 _controllerPd.getQuantity();
                 data.save().then((value) {
-                  return Get.to(() => CartPageView());
+                  _controllerPd.calculateSubAndQantityTotalPrice();
+                  return Get.to(() => const CartPageView());
                 });
               },
               style: ElevatedButton.styleFrom(
@@ -113,14 +114,14 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
             onTap: () {
               Get.back();
             },
-            child: Icon(Icons.arrow_back)),
+            child: const Icon(Icons.arrow_back)),
         actions: [
           InkWell(
             onTap: () {
-              Get.to(() => CartPageView());
+              Get.to(() => const CartPageView());
             },
             child: Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Stack(
                 children: [
                   const Icon(Icons.shopping_cart),
@@ -151,18 +152,16 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
                     items: List.generate(
                         _controllerPd.productDetails!.value.images!.length,
                         (index) => Container(
-                              child: Container(
-                                margin: EdgeInsets.all(5.0),
-                                child: ClipRRect(
-                                    borderRadius:
-                                        BorderRadius.all(Radius.circular(5.0)),
-                                    child: _controllerPd.productDetails == null
-                                        ? SizedBox()
-                                        : Image.network(
-                                            "${_controllerPd.productDetails?.value.images?[index]}",
-                                            fit: BoxFit.cover,
-                                            width: 1000.0)),
-                              ),
+                              margin: const EdgeInsets.all(5.0),
+                              child: ClipRRect(
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(5.0)),
+                                  child: _controllerPd.productDetails == null
+                                      ? const SizedBox()
+                                      : Image.network(
+                                          "${_controllerPd.productDetails?.value.images?[index]}",
+                                          fit: BoxFit.cover,
+                                          width: 1000.0)),
                             )),
                     carouselController: _controller,
                     options: CarouselOptions(
@@ -186,7 +185,7 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
                         child: Container(
                           width: 12.0,
                           height: 12.0,
-                          margin: EdgeInsets.symmetric(
+                          margin: const EdgeInsets.symmetric(
                               vertical: 8.0, horizontal: 4.0),
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
@@ -250,11 +249,11 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Brand',
+                      const Text('Brand',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w400)),
                       Text('${_controllerPd.productDetails?.value.brand}',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w400))
                     ],
                   ),
@@ -264,24 +263,24 @@ class _ProductDetailsPageViewState extends State<ProductDetailsPageView> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Stock',
+                      const Text('Stock',
                           style: TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w400)),
                       Text('${_controllerPd.productDetails?.value.stock}',
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontSize: 16, fontWeight: FontWeight.w400))
                     ],
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 40,
                   ),
-                  Text('Product Details',
+                  const Text('Product Details',
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
 
                   Text('${_controllerPd.productDetails?.value.description}',
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w400)),
+                      style: const TextStyle(
+                          fontSize: 14, fontWeight: FontWeight.w400)),
                 ]),
         ),
       ),

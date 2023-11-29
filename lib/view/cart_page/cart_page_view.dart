@@ -15,20 +15,7 @@ class CartPageView extends StatefulWidget {
 
 class _CartPageViewState extends State<CartPageView> {
   final ProductPagecontroller _controllerPd = Get.find();
-  TextEditingController _textFieldController = TextEditingController();
-  Future<int> _calculateTotalPrice() async {
-    final box = Boxes.getData();
-
-    List<Product> products = box.values.toList();
-
-    _controllerPd.subTotalPrice.value =
-        products.fold(0, (prev, product) => prev + product.price);
-    _controllerPd.totalQuantity.value =
-        products.fold(0, (prev, product) => prev + 1);
-    print(_controllerPd.subTotalPrice.value);
-    _controllerPd.calculateTotalPrice();
-    return _controllerPd.subTotalPrice.value;
-  }
+  final TextEditingController _textFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,9 +28,7 @@ class _CartPageViewState extends State<CartPageView> {
               color: Colors.white,
             ),
           ),
-          onPressed: () {
-            _calculateTotalPrice();
-          },
+          onPressed: () {},
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(
@@ -67,19 +52,20 @@ class _CartPageViewState extends State<CartPageView> {
         actions: [
           InkWell(
             onTap: () {
-              Get.to(() => CartPageView());
+              Get.to(() => const CartPageView());
             },
             child: Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Stack(
                 children: [
-                  Icon(Icons.shopping_cart),
+                  const Icon(Icons.shopping_cart),
                   Obx(() => CircleAvatar(
                         backgroundColor: Colors.red,
                         child: Center(
                             child: Text(
                           '${_controllerPd.totalQuantity.value}',
-                          style: TextStyle(fontSize: 12, color: Colors.white),
+                          style: const TextStyle(
+                              fontSize: 12, color: Colors.white),
                         )),
                       )),
                 ],
@@ -118,7 +104,8 @@ class _CartPageViewState extends State<CartPageView> {
                                   if (_textFieldController.text == 'ECHO13') {
                                     _controllerPd.calculatePercentage(
                                         _controllerPd.subTotalPrice.value, 5);
-                                    _controllerPd.calculateTotalPrice();
+                                    _controllerPd
+                                        .calculateSubAndQantityTotalPrice();
                                     _textFieldController.clear();
                                     Navigator.of(context).pop();
                                   } else {

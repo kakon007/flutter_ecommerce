@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_interview_app/box/boxes.dart';
 import 'package:flutter_interview_app/model/cart_product_model.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import '../../../controller/product_page_controller.dart';
@@ -17,8 +16,6 @@ class CartListView extends StatefulWidget {
 class _CartListViewState extends State<CartListView> {
   final ProductPagecontroller _controllerPd = Get.find();
 
-  //int _counter = 0;
-
   Future<int> _calculateTotalPrice({int? excludedProductId}) async {
     final box = Boxes.getData();
 
@@ -32,7 +29,6 @@ class _CartListViewState extends State<CartListView> {
         products.fold(0, (prev, product) => prev + product.price);
     _controllerPd.totalQuantity.value =
         products.fold(0, (prev, product) => prev - 1);
-    //print(_controllerPd.subTotalPrice.value);
     return _controllerPd.subTotalPrice.value;
   }
 
@@ -108,7 +104,7 @@ class _CartListViewState extends State<CartListView> {
                                   borderRadius: BorderRadius.circular(12),
                                   color: Colors.grey.shade100),
                               child: Image.network(
-                                '${data[i].images.first.toString()}',
+                                data[i].images.first.toString(),
                               ),
                             ),
                           ),
@@ -120,17 +116,17 @@ class _CartListViewState extends State<CartListView> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  '${data[i].title}',
-                                  style: TextStyle(
+                                  data[i].title,
+                                  style: const TextStyle(
                                       fontSize: 16,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                Text('Size L',
+                                const Text('Size L',
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w300)),
                                 Text('\$ ${data[i].price}',
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold)),
                               ],
@@ -144,7 +140,8 @@ class _CartListViewState extends State<CartListView> {
                                   // box.deleteAt(i);
                                   _calculateTotalPrice(excludedProductId: i);
                                   _controllerPd.voucherDiscount.value = 0;
-                                  _controllerPd.calculateTotalPrice();
+                                  _controllerPd
+                                      .calculateSubAndQantityTotalPrice();
                                 },
                                 child: const Icon(
                                   Icons.delete,
@@ -166,19 +163,19 @@ class _CartListViewState extends State<CartListView> {
                                                 Border.all(color: Colors.black),
                                             borderRadius:
                                                 BorderRadius.circular(8)),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.add,
                                           size: 15,
                                         )),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   Text(
                                     '${data[i].quantity}',
-                                    style: TextStyle(fontSize: 15),
+                                    style: const TextStyle(fontSize: 15),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 5,
                                   ),
                                   InkWell(
@@ -191,7 +188,7 @@ class _CartListViewState extends State<CartListView> {
                                                 Border.all(color: Colors.black),
                                             borderRadius:
                                                 BorderRadius.circular(8)),
-                                        child: Icon(
+                                        child: const Icon(
                                           Icons.remove,
                                           size: 15,
                                         )),
