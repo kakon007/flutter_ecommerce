@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_interview_app/view/cart_page/widgets/cart_list_view.dart';
 import 'package:flutter_interview_app/controller/product_page_controller.dart';
+import 'package:flutter_interview_app/view/cart_page/widgets/cart_total_amount_view.dart';
+import 'package:flutter_interview_app/view/cart_page/widgets/cart_voucher_view.dart';
 import 'package:get/get.dart';
 
 import '../../box/boxes.dart';
@@ -15,7 +17,6 @@ class CartPageView extends StatefulWidget {
 
 class _CartPageViewState extends State<CartPageView> {
   final ProductPagecontroller _controllerPd = Get.find();
-  final TextEditingController _textFieldController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -82,111 +83,11 @@ class _CartPageViewState extends State<CartPageView> {
             children: [
               const CartListView(),
               const SizedBox(height: 10),
-              InkWell(
-                onTap: () {
-                  showDialog(
-                      context: context,
-                      builder: (context) {
-                        return AlertDialog(
-                          title: const Text('Add a voucher'),
-                          content: TextField(
-                            controller: _textFieldController,
-                            decoration: const InputDecoration(
-                                hintText: "Add a voucher"),
-                          ),
-                          actions: <Widget>[
-                            MaterialButton(
-                              color: Colors.black,
-                              textColor: Colors.white,
-                              child: const Text('Add voucher'),
-                              onPressed: () {
-                                if (_textFieldController.text.isNotEmpty) {
-                                  if (_textFieldController.text == 'ECHO13') {
-                                    _controllerPd.calculatePercentage(
-                                        _controllerPd.subTotalPrice.value, 5);
-                                    _controllerPd
-                                        .calculateSubAndQantityTotalPrice();
-                                    _textFieldController.clear();
-                                    Navigator.of(context).pop();
-                                  } else {
-                                    Get.snackbar('Faild', "Invalid voucher");
-                                    _textFieldController.clear();
-
-                                    Navigator.of(context).pop();
-                                  }
-                                }
-                              },
-                            ),
-                          ],
-                        );
-                      });
-                },
-                child: Container(
-                  //height: MediaQuery.of(context).size.height,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      color: Color(0xffF2F2F2),
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: Text(
-                      'Add a voucher',
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.grey.shade500),
-                    ),
-                  ),
-                ),
-              ),
+              CartVoucherView(),
               const SizedBox(
                 height: 24,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Sub total',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-                  Obx(
-                    () => Text('\$ ${_controllerPd.subTotalPrice.value}',
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w400)),
-                  )
-                ],
-              ),
-              _controllerPd.voucherDiscount.value == 0
-                  ? const SizedBox()
-                  : Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const Text('Voucher discount',
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.w400)),
-                        Obx(
-                          () => Text(
-                              '\$ - ${_controllerPd.voucherDiscount.value}',
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w400)),
-                        )
-                      ],
-                    ),
-              const Divider(
-                thickness: 2,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text('Total',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-                  Obx(
-                    () => Text('\$ ${_controllerPd.totalPrice.value}',
-                        style: const TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w400)),
-                  )
-                ],
-              ),
+              CartTotalAmountView()
             ],
           ),
         ),

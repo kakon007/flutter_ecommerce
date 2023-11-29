@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_interview_app/box/boxes.dart';
 import 'package:flutter_interview_app/model/product_details_model.dart';
 import 'package:flutter_interview_app/model/product_list_model.dart';
@@ -11,6 +12,7 @@ class ProductPagecontroller extends GetxController {
   RxList<Product> productList = (List<Product>.of([])).obs;
   RxList<dynamic> categoriesList = (List<dynamic>.of([])).obs;
   final Rx<ProductDetailsModel>? productDetails = ProductDetailsModel().obs;
+  final TextEditingController textFieldController = TextEditingController();
 
   RxBool isDataLoading = RxBool(true);
 
