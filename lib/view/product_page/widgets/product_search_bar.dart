@@ -20,7 +20,7 @@ class ProductSearchBar extends StatelessWidget {
           hintText: 'Search anything',
           hintStyle: TextStyle(color: Colors.grey),
         ),
-        onSubmitted: (v) {
+        onChanged: (v) {
           _controller.getAllProductBySearchingData(productName: v);
         },
       ),

@@ -26,7 +26,25 @@ class _CartPageViewState extends State<CartPageView> {
               color: Colors.white,
             ),
           ),
-          onPressed: () {},
+          onPressed: () {
+            showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                      title: const Text('Total amount'),
+                      content: Text(
+                        '\$${_controllerPd.totalPrice.value}',
+                        style: const TextStyle(
+                            fontSize: 18, fontWeight: FontWeight.bold),
+                      ),
+                      actions: [
+                        TextButton(
+                            onPressed: () {
+                              Get.back();
+                            },
+                            child: const Text('OK'))
+                      ],
+                    ));
+          },
           style: ElevatedButton.styleFrom(
               backgroundColor: Colors.black,
               padding: const EdgeInsets.symmetric(

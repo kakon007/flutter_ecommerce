@@ -34,7 +34,7 @@ class _ProductListViewState extends State<ProductListView> {
                           .getIndividualProductData(
                               productid: _controller.productList[index].id)
                           .then((value) =>
-                              Get.to(() => ProductDetailsPageView()));
+                              Get.to(() => const ProductDetailsPageView()));
                     },
                     child: Container(
                       //height: 300,
