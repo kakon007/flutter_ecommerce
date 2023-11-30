@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_interview_app/view/cart_page/widgets/cart_list_view.dart';
 import 'package:flutter_interview_app/controller/product_page_controller.dart';
+import 'package:flutter_interview_app/view/cart_page/widgets/cart_list_view.dart';
 import 'package:flutter_interview_app/view/cart_page/widgets/cart_total_amount_view.dart';
 import 'package:flutter_interview_app/view/cart_page/widgets/cart_voucher_view.dart';
 import 'package:get/get.dart';
-
-import '../../box/boxes.dart';
-import '../../model/cart_product_model.dart';
 
 class CartPageView extends StatefulWidget {
   const CartPageView({super.key});
