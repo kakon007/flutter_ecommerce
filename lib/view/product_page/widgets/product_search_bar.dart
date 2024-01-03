@@ -14,11 +14,15 @@ class ProductSearchBar extends StatelessWidget {
           color: Color(0xffF2F2F2),
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: TextField(
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
-          prefixIcon: Icon(Icons.search),
+          prefixIcon: InkWell(
+              onTap: () {
+                _controller.getAllProductData();
+              },
+              child: const Icon(Icons.close)),
           hintText: 'Search anything',
-          hintStyle: TextStyle(color: Colors.grey),
+          hintStyle: const TextStyle(color: Colors.grey),
         ),
         onChanged: (v) {
           _controller.getAllProductBySearchingData(productName: v);
