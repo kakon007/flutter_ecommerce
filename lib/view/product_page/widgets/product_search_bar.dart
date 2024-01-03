@@ -20,7 +20,7 @@ class ProductSearchBar extends StatelessWidget {
               onTap: () {
                 _controller.getAllProductData();
               },
-              child: const Icon(Icons.close)),
+              child: const Icon(Icons.refresh)),
           hintText: 'Search anything',
           hintStyle: const TextStyle(color: Colors.grey),
         ),
