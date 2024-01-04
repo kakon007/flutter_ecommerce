@@ -46,11 +46,14 @@ class _ProductListViewState extends State<ProductListView> {
                         children: [
                           Expanded(
                             flex: 5,
-                            child: Center(
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(12),
+                                  topRight: Radius.circular(12)),
                               child: Image.network(
                                   '${_controller.productList[index].images?.first.toString()}',
                                   fit: BoxFit.cover,
-                                  width: 1000.0),
+                                  width: double.infinity),
                             ),
                           ),
                           Expanded(
