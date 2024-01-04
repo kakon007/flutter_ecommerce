@@ -21,14 +21,14 @@ class ProductCategoryButton extends StatelessWidget {
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
-                      _controller.selectedIndex.value = i;
+                      _controller.selectedCategoryIndex.value = i;
                       _controller.getAllProductBySelectingData(
                           productName: _controller.categoriesList[i]);
                     },
                     child: Obx(
                       () => Container(
                         decoration: BoxDecoration(
-                            color: _controller.selectedIndex.value == i
+                            color: _controller.selectedCategoryIndex.value == i
                                 ? Colors
                                     .black // Change this to the selected color
                                 : const Color(0xffF2F2F2),
@@ -38,9 +38,11 @@ class ProductCategoryButton extends StatelessWidget {
                           padding: const EdgeInsets.only(left: 15, right: 15),
                           child: Text('${_controller.categoriesList[i]}',
                               style: TextStyle(
-                                  color: _controller.selectedIndex.value == i
-                                      ? Colors.white
-                                      : Colors.black)),
+                                  color:
+                                      _controller.selectedCategoryIndex.value ==
+                                              i
+                                          ? Colors.white
+                                          : Colors.black)),
                         )),
                       ),
                     ),

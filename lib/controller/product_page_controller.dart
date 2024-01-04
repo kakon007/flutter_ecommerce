@@ -16,15 +16,15 @@ class ProductPagecontroller extends GetxController {
 
   RxBool isDataLoading = RxBool(true);
 
-  RxInt selectedIndex = 0.obs;
+  RxInt selectedCategoryIndex = RxInt(0);
 
-  RxInt subTotalPrice = 0.obs;
+  RxInt subTotalPrice = RxInt(0);
 
-  RxInt totalQuantity = 0.obs;
+  RxInt totalQuantity = RxInt(0);
 
-  RxInt voucherDiscount = 0.obs;
+  RxInt voucherDiscount = RxInt(0);
 
-  RxInt totalPrice = 0.obs;
+  RxInt totalPrice = RxInt(0);
 
   @override
   void onInit() {
