@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_interview_app/model/cart_product_model.dart';
 import 'package:flutter_interview_app/view/product_page/product_page_view.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
               backgroundColor: Colors.white,
               titleTextStyle: TextStyle(color: Colors.black))),
       home: const ProductPageView(),
+      builder: EasyLoading.init(),
     );
   }
 }

@@ -21,7 +21,7 @@ class _ProductPageViewState extends State<ProductPageView> {
       appBar: AppBar(
         elevation: 0,
         title: const Text(
-          'Echologyx',
+          'Ecommerce App',
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
         ),
         actions: [

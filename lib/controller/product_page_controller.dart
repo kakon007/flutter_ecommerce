@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_interview_app/box/boxes.dart';
 import 'package:flutter_interview_app/model/product_details_model.dart';
 import 'package:flutter_interview_app/model/product_list_model.dart';
@@ -93,6 +94,7 @@ class ProductPagecontroller extends GetxController {
   }
 
   Future getIndividualProductData({int? productid}) async {
+    EasyLoading.show(status: 'Loading...');
     http.Response response =
         await http.get(Uri.parse('https://dummyjson.com/products/$productid'));
 
@@ -100,9 +102,11 @@ class ProductPagecontroller extends GetxController {
       productDetails?.value =
           ProductDetailsModel.fromJson(json.decode(response.body));
       isDataLoading.value = false;
+      EasyLoading.dismiss();
     } else {
       isDataLoading.value = false;
       Get.snackbar('Error', 'Something went worng');
+      EasyLoading.dismiss();
     }
   }
 
