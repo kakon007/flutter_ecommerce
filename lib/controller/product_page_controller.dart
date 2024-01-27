@@ -13,6 +13,7 @@ class ProductPagecontroller extends GetxController {
   RxList<dynamic> categoriesList = (List<dynamic>.of([])).obs;
   final Rx<ProductDetailsModel>? productDetails = ProductDetailsModel().obs;
   final TextEditingController textFieldController = TextEditingController();
+  final TextEditingController searchFieldController = TextEditingController();
 
   RxBool isDataLoading = RxBool(true);
 
@@ -70,6 +71,8 @@ class ProductPagecontroller extends GetxController {
       ProductListPage productModelData =
           ProductListPage.fromJson(json.decode(response.body));
       productList.value = productModelData.products!;
+      searchFieldController.clear();
+      selectedCategoryIndex.value = 0;
     } else {
       Get.snackbar('Error', 'Something went worng');
     }

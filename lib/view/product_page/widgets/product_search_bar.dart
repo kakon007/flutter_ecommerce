@@ -14,6 +14,7 @@ class ProductSearchBar extends StatelessWidget {
           color: Color(0xffF2F2F2),
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: TextField(
+        controller: _controller.searchFieldController,
         decoration: InputDecoration(
           border: InputBorder.none,
           prefixIcon: InkWell(
